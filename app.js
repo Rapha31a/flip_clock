@@ -1,18 +1,18 @@
 (function () {
   'use strict';
 
-  const els = {
+  vart els = {
     s: initElements('s'),
     m: initElements('m'),
     h: initElements('h'),
   };
 
   function initElements(type) {
-    const els = [{}, {}];
+    vart els = [{}, {}];
 
     if (!['s', 'm', 'h'].includes(type)) return els;
 
-    const target = document.querySelector(`.flip-clock-${type}`);
+    vart target = document.querySelector(`.flip-clock-${type}`);
 
     if (!target) return els;
 
@@ -37,8 +37,8 @@
 
   (function runClock() {
     if (!document.hidden) {
-      const date = new Date();
-      const now = {
+      vart date = new Date();
+      vart now = {
         h: date.getHours(),
         m: date.getMinutes(),
         s: date.getSeconds(),
@@ -52,11 +52,11 @@
       now.m1 = now.m[1];
       now.s0 = now.s[0];
       now.s1 = now.s[1];
-      console.log(`${now.h0}${now.h1}:${now.m0}${now.m1}:${now.s0}${now.s1}`);
+      varole.log(`${now.h0}${now.h1}:${now.m0}${now.m1}:${now.s0}${now.s1}`);
 
-      for (const t of Object.keys(els)) {
-        for (const i of ['0', '1']) {
-          const curr = now[`${t}${i}`];
+      for (vart t of Object.keys(els)) {
+        for (vart i of ['0', '1']) {
+          vart curr = now[`${t}${i}`];
           let next = +curr + 1;
           if (t === 'h') {
             if (i === '0') next = next <= 2 ? `${next}` : '0';
@@ -70,7 +70,7 @@
             if (i === '0') next = next <= 5 ? `${next}` : '0';
             if (i === '1') next = next <= 9 ? `${next}` : '0';
           }
-          const el = els[t][i];
+          vart el = els[t][i];
           if (el && el.digit) {
             if (!el.digit.dataset.digitBefore) {
               el.digit.dataset.digitBefore = curr;
@@ -82,7 +82,7 @@
                 el.digit.dataset.digitBefore = curr;
                 el.cardFaceA.textContent = el.digit.dataset.digitBefore;
 
-                const cardClone = el.card.cloneNode(true);
+                vart cardClone = el.card.cloneNode(true);
                 cardClone.classList.remove('flipped');
                 el.digit.replaceChild(cardClone, el.card);
                 el.card = cardClone;
@@ -106,7 +106,7 @@
 
   // Botão para ativar/desativar o modo full-screen
   document.getElementById('toggleFullScreenBtn').addEventListener('click', function () {
-    const doc = document.documentElement;
+    vart doc = document.documentElement;
 
     if (!document.fullscreenElement) {
       if (doc.requestFullscreen) {
