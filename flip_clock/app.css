@@ -1,0 +1,237 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.3s ease-in-out;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.flip-clock-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10vw; /* Aumenta o tamanho conforme a tela */
+  line-height: 0;
+}
+
+.flip-clock-container * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+
+.flip-clock {
+  display: flex;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
+  perspective: 1000px;
+}
+
+.digit {
+  position: relative;
+  width: 20vw; /* Ajusta a largura de acordo com a tela */
+  height: 30vw; /* Ajusta a altura de acordo com a tela */
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+.digit-left {
+  margin-right: 1px;
+}
+
+.digit-right {
+  margin-left: 1px;
+}
+
+.digit::before,
+.digit::after {
+  position: absolute;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 50%;
+  overflow: hidden;
+}
+
+.digit::before {
+  content: attr(data-digit-before);
+  bottom: 0;
+  align-items: flex-start;
+}
+
+.digit::after {
+  content: attr(data-digit-after);
+  top: 0;
+  align-items: flex-end;
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 50%;
+  transform-style: preserve-3d;
+  transform-origin: bottom;
+  transform: rotateX(0);
+  transition: transform 0.7s ease-in-out;
+}
+
+.card.flipped {
+  transform: rotateX(-180deg);
+}
+
+.card-face {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  backface-visibility: hidden;
+}
+
+.card-face-front {
+  align-items: flex-end;
+}
+
+.card-face-back {
+  align-items: flex-start;
+  transform: rotateX(-180deg);
+}
+
+.digit::before,
+.digit::after,
+.card-face-front,
+.card-face-back {
+  background: white;
+  color: black;
+}
+
+.digit,
+.digit::before,
+.digit::after,
+.card,
+.card-face {
+  border-radius: 4px;
+}
+
+.digit::before,
+.card-face-back {
+  background: linear-gradient(0, #aaa, #ccc 50%, #fafafa);
+  color: #212121;
+  border-top: 1px solid black;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.digit::after,
+.card-face-front {
+  background: linear-gradient(0, #aaa, #bbb 50%, #f5f5f5);
+  color: #212121;
+  border-bottom: 1px solid black;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.digit-left,
+.digit-left::before,
+.digit-left::after,
+.digit-left .card,
+.digit-left .card-face {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.digit-right,
+.digit-right::before,
+.digit-right::after,
+.digit-right .card,
+.digit-right .card-face {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.colon {
+  color: black;
+  margin: 0 6px;
+  padding-bottom: 9px;
+}
+
+/* Responsividade adicional para telas muito grandes ou muito pequenas */
+@media (max-width: 600px) {
+  .flip-clock-container {
+    font-size: 15vw; /* Ajusta o tamanho para telas menores */
+  }
+  
+  .digit {
+    width: 25vw; /* Ajusta para telas menores */
+    height: 35vw; /* Ajusta para telas menores */
+  }
+}
+
+@media (min-width: 1200px) {
+  .flip-clock-container {
+    font-size: 5vw; /* Ajusta o tamanho para telas muito grandes */
+  }
+  
+  .digit {
+    width: 10vw; /* Ajusta para telas maiores */
+    height: 15vw; /* Ajusta para telas maiores */
+  }
+}
+
+/* Estilos para o modo de tela cheia */
+body.fullscreen #app {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body.fullscreen .flip-clock-container {
+  font-size: 12vw; /* Aumenta o tamanho no modo full-screen */
+}
+
+/* Estilo do botão de Modo Apresentação */
+button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #666;
+}
