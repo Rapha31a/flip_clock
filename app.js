@@ -1,18 +1,18 @@
 (function () {
   'use strict';
 
-  vart els = {
+  var els = {
     s: initElements('s'),
     m: initElements('m'),
     h: initElements('h'),
   };
 
   function initElements(type) {
-    vart els = [{}, {}];
+    var els = [{}, {}];
 
     if (!['s', 'm', 'h'].includes(type)) return els;
 
-    vart target = document.querySelector(`.flip-clock-${type}`);
+    var target = document.querySelector(`.flip-clock-${type}`);
 
     if (!target) return els;
 
@@ -37,8 +37,8 @@
 
   (function runClock() {
     if (!document.hidden) {
-      vart date = new Date();
-      vart now = {
+      var date = new Date();
+      var now = {
         h: date.getHours(),
         m: date.getMinutes(),
         s: date.getSeconds(),
@@ -54,9 +54,9 @@
       now.s1 = now.s[1];
       varole.log(`${now.h0}${now.h1}:${now.m0}${now.m1}:${now.s0}${now.s1}`);
 
-      for (vart t of Object.keys(els)) {
-        for (vart i of ['0', '1']) {
-          vart curr = now[`${t}${i}`];
+      for (var t of Object.keys(els)) {
+        for (var i of ['0', '1']) {
+          var curr = now[`${t}${i}`];
           let next = +curr + 1;
           if (t === 'h') {
             if (i === '0') next = next <= 2 ? `${next}` : '0';
@@ -70,7 +70,7 @@
             if (i === '0') next = next <= 5 ? `${next}` : '0';
             if (i === '1') next = next <= 9 ? `${next}` : '0';
           }
-          vart el = els[t][i];
+          var el = els[t][i];
           if (el && el.digit) {
             if (!el.digit.dataset.digitBefore) {
               el.digit.dataset.digitBefore = curr;
@@ -82,7 +82,7 @@
                 el.digit.dataset.digitBefore = curr;
                 el.cardFaceA.textContent = el.digit.dataset.digitBefore;
 
-                vart cardClone = el.card.cloneNode(true);
+                var cardClone = el.card.cloneNode(true);
                 cardClone.classList.remove('flipped');
                 el.digit.replaceChild(cardClone, el.card);
                 el.card = cardClone;
@@ -106,7 +106,7 @@
 
   // Botão para ativar/desativar o modo full-screen
   document.getElementById('toggleFullScreenBtn').addEventListener('click', function () {
-    vart doc = document.documentElement;
+    var doc = document.documentElement;
 
     if (!document.fullscreenElement) {
       if (doc.requestFullscreen) {
